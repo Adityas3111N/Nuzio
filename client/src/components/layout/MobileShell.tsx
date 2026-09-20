@@ -1,5 +1,4 @@
 import React from 'react'
-import { Battery, Wifi } from 'lucide-react'
 import { useApp } from '../../context/AppContext'
 import type { ScreenId } from '../../types'
 
@@ -57,30 +56,9 @@ export const MobileShell: React.FC<MobileShellProps> = ({ children }) => {
 
       {/* iPhone Device Frame */}
       <div className="relative w-full sm:w-[390px] h-[100dvh] sm:h-[844px] bg-[#09090f] sm:rounded-[52px] sm:border-[10px] sm:border-[#1d1d2b] shadow-2xl sm:shadow-indigo-950/40 flex flex-col overflow-hidden">
-        {/* Dynamic Island & Status Bar */}
-        <div className="pt-3 px-7 pb-2 flex items-center justify-between z-40 shrink-0">
-          <span className="text-xs font-semibold tracking-tight text-slate-200">9:41</span>
-
-          {/* Dynamic Island */}
-          <div className="w-24 h-6 bg-black rounded-full flex items-center justify-center">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#111119] ml-12" />
-          </div>
-
-          <div className="flex items-center gap-1.5 text-slate-300">
-            <span className="text-[10px] font-bold tracking-tight">5G</span>
-            <Wifi className="w-3.5 h-3.5" />
-            <Battery className="w-4 h-4 fill-slate-300 stroke-slate-300" />
-          </div>
-        </div>
-
         {/* Screen Content */}
         <div className="flex-1 flex flex-col overflow-hidden relative">
           {children}
-        </div>
-
-        {/* iOS Home Indicator Bar */}
-        <div className="h-4 w-full flex items-center justify-center shrink-0 bg-transparent pb-1">
-          <div className="w-32 h-1 bg-slate-600/70 rounded-full" />
         </div>
       </div>
     </div>
