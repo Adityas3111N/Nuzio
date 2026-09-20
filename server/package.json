@@ -16,7 +16,9 @@
     "cors": "^2.8.6",
     "dotenv": "^18.0.1",
     "express": "^5.2.1",
+    "google-tts-api": "^2.0.2",
     "mongodb": "^7.6.0",
-    "mongoose": "^9.10.1"
+    "mongoose": "^9.10.1",
+    "rss-parser": "^3.13.0"
   }
 }

@@ -13,6 +13,7 @@ const DURATION_OPTIONS = [
 export const VoiceView: React.FC = () => {
   const { userPreferences, updatePreferences, goToScreen } = useApp()
   const [playingVoiceId, setPlayingVoiceId] = useState<string | null>(null)
+  const audioRef = React.useRef<HTMLAudioElement | null>(null)
 
   const selectedVoice =
     NARRATORS.find((n) => n.id === userPreferences.narratorId) || NARRATORS[0]
@@ -21,10 +22,51 @@ export const VoiceView: React.FC = () => {
     updatePreferences({ narratorId: id })
   }
 
-  const toggleSample = (e: React.MouseEvent, id: string) => {
+  const toggleSample = async (e: React.MouseEvent, id: string) => {
     e.stopPropagation()
-    setPlayingVoiceId((prev) => (prev === id ? null : id))
+    if (playingVoiceId === id) {
+      if (audioRef.current) {
+        audioRef.current.pause()
+      }
+      setPlayingVoiceId(null)
+      return
+    }
+
+    if (audioRef.current) {
+      audioRef.current.pause()
+    }
+
+    try {
+      setPlayingVoiceId(id)
+      const res = await fetch(`/api/audio/sample/${id}`)
+      if (res.ok) {
+        const data = await res.json()
+        if (data.sampleUrl) {
+          const audio = new Audio(data.sampleUrl)
+          audioRef.current = audio
+          audio.onended = () => setPlayingVoiceId(null)
+          audio.onerror = () => setPlayingVoiceId(null)
+          await audio.play()
+          return
+        }
+      }
+    } catch {
+      // Fallback
+    }
+
+    // Auto reset after 3s if no stream
+    setTimeout(() => {
+      setPlayingVoiceId((curr) => (curr === id ? null : curr))
+    }, 3000)
   }
+
+  React.useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause()
+      }
+    }
+  }, [])
 
   const handleSelectDuration = (min: number) => {
     updatePreferences({ briefLengthMinutes: min })

@@ -4,6 +4,12 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import 'dotenv/config';
 
+import preferenceRoutes from './routes/preferenceRoutes.js';
+import storyRoutes from './routes/storyRoutes.js';
+import briefRoutes from './routes/briefRoutes.js';
+import audioRoutes from './routes/audioRoutes.js';
+import { seedDatabase } from './seed/seedData.js';
+
 // Force DNS resolver to public DNS to avoid querySrv ECONNREFUSED on local network
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
@@ -23,34 +29,19 @@ if (!MONGO_URI) {
 } else {
   mongoose
     .connect(MONGO_URI)
-    .then(() => console.log('Connected to MongoDB successfully.'))
+    .then(async () => {
+      console.log('Connected to MongoDB successfully.');
+      await seedDatabase();
+    })
     .catch((err) => console.error('MongoDB connection error:', err.message));
 }
-
-// Preference Schema & Model
-const PreferenceSchema = new mongoose.Schema({
-  name: { type: String, default: 'Aarav' },
-  language: { type: String, default: 'en' },
-  locationEnabled: { type: Boolean, default: true },
-  profession: { type: String, default: 'Technology' },
-  topics: { type: [String], default: ['AI & Technology', 'Startups'] },
-  narratorId: { type: String, default: 'aria' },
-  briefLengthMinutes: { type: Number, default: 10 },
-  scheduledTime: { type: String, default: '7:00' },
-  scheduledPeriod: { type: String, default: 'AM' },
-  notificationsEnabled: { type: Boolean, default: true },
-  plan: { type: String, default: 'free' },
-  updatedAt: { type: Date, default: Date.now },
-});
-
-const Preference = mongoose.models.Preference || mongoose.model('Preference', PreferenceSchema);
 
 // Health check route
 app.get('/api/health', (req, res) => {
   const dbState = mongoose.connection.readyState;
   res.json({
     status: 'ok',
-    message: 'Nuzio API server is running',
+    message: 'Nuzio AI API server is running',
     database: {
       connected: dbState === 1,
       state: connectionStates[dbState] || 'unknown',
@@ -59,32 +50,12 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Preferences routes
-app.get('/api/preferences', async (req, res) => {
-  try {
-    let pref = await Preference.findOne();
-    if (!pref) {
-      pref = await Preference.create({});
-    }
-    res.json(pref);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.post('/api/preferences', async (req, res) => {
-  try {
-    const pref = await Preference.findOneAndUpdate(
-      {},
-      { ...req.body, updatedAt: new Date() },
-      { upsert: true, new: true }
-    );
-    res.json({ success: true, data: pref });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
+// Mount Routes
+app.use('/api/preferences', preferenceRoutes);
+app.use('/api/stories', storyRoutes);
+app.use('/api/brief', briefRoutes);
+app.use('/api/audio', audioRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  console.log(`Nuzio Server listening on port ${PORT}`);
 });

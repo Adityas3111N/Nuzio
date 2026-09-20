@@ -29,19 +29,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }
 
   React.useEffect(() => {
+    // Load user preferences from backend
     fetch('/api/preferences')
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
-        if (data && data._id) {
+        if (data && (data._id || data.userId)) {
           setUserPreferences((prev) => ({
             ...prev,
             ...data,
           }))
         }
       })
-      .catch(() => {
-        // Gracefully keep default state if backend is offline
+      .catch(() => {})
+
+    // Load live stories from backend
+    fetch('/api/stories')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && data.stories && data.stories.length > 0) {
+          setStories(data.stories)
+        }
       })
+      .catch(() => {})
   }, [])
 
   const updatePreferences = (patch: Partial<UserPreferences>) => {
@@ -60,6 +69,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setStories((prev) =>
       prev.map((s) => (s.id === storyId ? { ...s, bookmarked: !s.bookmarked } : s)),
     )
+    fetch('/api/preferences/bookmark', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ storyId }),
+    }).catch(() => {})
   }
 
   return (

@@ -32,9 +32,36 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   ])
 
   const audioTimerRef = useRef<number | null>(null)
+  const audioElementRef = useRef<HTMLAudioElement | null>(null)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const audio = new Audio()
+      audio.onended = () => {
+        setIsPlaying(false)
+        setCurrentTime(0)
+      }
+      audio.ontimeupdate = () => {
+        if (audio.currentTime > 0) {
+          setCurrentTime(Math.round(audio.currentTime))
+        }
+      }
+      audioElementRef.current = audio
+    }
+
+    return () => {
+      if (audioElementRef.current) {
+        audioElementRef.current.pause()
+      }
+    }
+  }, [])
 
   useEffect(() => {
     if (isPlaying) {
+      if (audioElementRef.current && audioElementRef.current.src && audioElementRef.current.paused) {
+        audioElementRef.current.play().catch(() => {})
+      }
+
       audioTimerRef.current = window.setInterval(() => {
         setCurrentTime((prev) => {
           if (prev >= duration) {
@@ -53,6 +80,9 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         )
       }, 1000 / playbackRate)
     } else {
+      if (audioElementRef.current && !audioElementRef.current.paused) {
+        audioElementRef.current.pause()
+      }
       if (audioTimerRef.current) {
         clearInterval(audioTimerRef.current)
       }
@@ -69,6 +99,23 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setCurrentStory(story)
     setCurrentTime(0)
     setIsPlaying(true)
+
+    if (story.audioUrl && audioElementRef.current) {
+      audioElementRef.current.src = story.audioUrl
+      audioElementRef.current.playbackRate = playbackRate
+      audioElementRef.current.play().catch(() => {})
+    } else if (story.id && audioElementRef.current) {
+      fetch(`/api/audio/story/${story.id}`)
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data && data.audioUrl && audioElementRef.current) {
+            audioElementRef.current.src = data.audioUrl
+            audioElementRef.current.playbackRate = playbackRate
+            audioElementRef.current.play().catch(() => {})
+          }
+        })
+        .catch(() => {})
+    }
   }
 
   const togglePlay = () => {
@@ -76,7 +123,11 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }
 
   const seek = (seconds: number) => {
-    setCurrentTime(Math.max(0, Math.min(duration, seconds)))
+    const target = Math.max(0, Math.min(duration, seconds))
+    setCurrentTime(target)
+    if (audioElementRef.current) {
+      audioElementRef.current.currentTime = target
+    }
   }
 
   const skip = (seconds: number) => {
@@ -85,6 +136,9 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const setRate = (rate: number) => {
     setPlaybackRate(rate)
+    if (audioElementRef.current) {
+      audioElementRef.current.playbackRate = rate
+    }
   }
 
   return (

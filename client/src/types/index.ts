@@ -39,6 +39,10 @@ export interface Story {
   source: string
   publishedAt: string
   bookmarked?: boolean
+  audioUrl?: string
+  audioUrls?: Record<string, string>
+  fullScript?: string
+  sourceUrl?: string
 }
 
 export interface UserPreferences {
