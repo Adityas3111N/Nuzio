@@ -1,11 +1,10 @@
 import React from 'react'
-import { Battery, Monitor, Wifi } from 'lucide-react'
+import { Battery, Wifi } from 'lucide-react'
 import { useApp } from '../../context/AppContext'
 import type { ScreenId } from '../../types'
 
 interface MobileShellProps {
   children: React.ReactNode
-  onToggleDesktopView?: () => void
 }
 
 const SCREENS: { id: ScreenId; label: string }[] = [
@@ -24,10 +23,7 @@ const SCREENS: { id: ScreenId; label: string }[] = [
   { id: 'billing', label: '13 Plan & Billing' },
 ]
 
-export const MobileShell: React.FC<MobileShellProps> = ({
-  children,
-  onToggleDesktopView,
-}) => {
+export const MobileShell: React.FC<MobileShellProps> = ({ children }) => {
   const { currentScreen, goToScreen } = useApp()
 
   return (
@@ -56,18 +52,6 @@ export const MobileShell: React.FC<MobileShellProps> = ({
               </button>
             ))}
           </div>
-
-          {onToggleDesktopView && (
-            <button
-              type="button"
-              onClick={onToggleDesktopView}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#141422] hover:bg-[#1b1b2e] text-indigo-300 text-xs font-medium border border-indigo-900/40 transition-colors shrink-0 cursor-pointer ml-2"
-              title="Expand to Full Desktop View"
-            >
-              <Monitor className="w-3.5 h-3.5" />
-              <span>Desktop View</span>
-            </button>
-          )}
         </div>
       </header>
 

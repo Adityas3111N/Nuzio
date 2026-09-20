@@ -10,7 +10,7 @@ export const MiniPlayer: React.FC = () => {
   if (!currentStory) return null
 
   return (
-    <div className="md:hidden px-4 py-2 bg-[#09090e] border-t border-[#1a1a28] flex items-center justify-between gap-3 shrink-0">
+    <div className="px-4 py-2 bg-[#09090e] border-t border-[#1a1a28] flex items-center justify-between gap-3 shrink-0">
       <div
         className="flex items-center gap-2.5 flex-1 min-w-0 cursor-pointer"
         onClick={() => goToScreen('brief')}

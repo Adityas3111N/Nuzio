@@ -22,7 +22,7 @@ export const BottomNav: React.FC = () => {
   }
 
   return (
-    <nav className="md:hidden h-16 bg-[#0e0e16]/95 backdrop-blur-md border-t border-[#1e1e2d] px-6 flex items-center justify-between z-30 shrink-0">
+    <nav className="h-16 bg-[#0e0e16]/95 backdrop-blur-md border-t border-[#1e1e2d] px-6 flex items-center justify-between z-30 shrink-0">
       {tabs.map((tab) => {
         const Icon = tab.icon
         const isActive = activeTab === tab.id

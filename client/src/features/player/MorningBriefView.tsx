@@ -19,7 +19,7 @@ import { useAudio } from '../../context/AudioContext'
 const CATEGORIES = ['All', 'AI & Tech', 'Markets', 'Startups', 'Science']
 
 export const MorningBriefView: React.FC = () => {
-  const { userPreferences, selectedCategory, setSelectedCategory, goToScreen, toggleBookmark, stories } =
+  const { userPreferences, selectedCategory, setSelectedCategory, goToScreen, toggleBookmark } =
     useApp()
   const {
     currentStory,
@@ -29,7 +29,6 @@ export const MorningBriefView: React.FC = () => {
     playbackRate,
     waveformBars,
     togglePlay,
-    playStory,
     skip,
     setRate,
   } = useAudio()
@@ -55,8 +54,8 @@ export const MorningBriefView: React.FC = () => {
     <div className="flex-1 flex flex-col justify-between bg-[#09090f] overflow-hidden">
       {/* Scrollable Content */}
       <div className="flex-1 px-5 py-3 overflow-y-auto no-scrollbar">
-        {/* Top App Bar (mobile only, desktop has universal header) */}
-        <header className="md:hidden flex items-center justify-between py-2 border-b border-[#181826]/70">
+        {/* Top App Bar */}
+        <header className="flex items-center justify-between py-2 border-b border-[#181826]/70">
           <div className="flex items-center gap-1.5">
             <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-[#6366f1] to-[#8b5cf6] flex items-center justify-center">
               <Sparkles className="w-2.5 h-2.5 text-white fill-white" />
@@ -136,10 +135,8 @@ export const MorningBriefView: React.FC = () => {
           </div>
         </div>
 
-        {/* Responsive Desktop Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-          {/* Main Audio Player Card */}
-          <div className="lg:col-span-7 p-4 rounded-3xl bg-[#12121e] border border-[#232338] shadow-2xl relative overflow-hidden">
+        {/* Main Audio Player Card */}
+        <div className="p-4 rounded-3xl bg-[#12121e] border border-[#232338] shadow-2xl relative overflow-hidden">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-800/40 uppercase tracking-wider">
                 {currentStory.category}
@@ -236,64 +233,7 @@ export const MorningBriefView: React.FC = () => {
               </button>
             </div>
           </div>
-
-          {/* Up Next in Today's Brief on Desktop */}
-          <div className="hidden lg:flex lg:col-span-5 flex-col gap-2 p-4 rounded-3xl bg-[#11111c] border border-[#1f1f2e]">
-            <div className="flex items-center justify-between pb-2 mb-1 border-b border-[#1b1b2a]">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                Up Next in Brief
-              </span>
-              <span className="text-[10px] text-slate-500">{stories.length} stories</span>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              {stories.map((story, idx) => {
-                const isSelected = story.id === currentStory.id
-                return (
-                  <div
-                    key={story.id}
-                    onClick={() => playStory(story)}
-                    className={`p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
-                      isSelected
-                        ? 'bg-[#18182a] border-[#6366f1]'
-                        : 'bg-[#0e0e16] border-[#1a1a26] hover:border-slate-700'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <span className="text-xs font-bold text-slate-500 w-4 text-center shrink-0">
-                        {idx + 1}
-                      </span>
-                      <div className="min-w-0">
-                        <p className="text-xs font-medium text-white truncate">
-                          {story.title}
-                        </p>
-                        <span className="text-[9px] text-slate-400">
-                          {story.category} • {story.durationText.split('•')[1] || '2 min'}
-                        </span>
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ml-2 ${
-                        isSelected && isPlaying
-                          ? 'bg-[#8b5cf6] text-white'
-                          : 'bg-[#1a1a28] text-slate-400'
-                      }`}
-                    >
-                      {isSelected && isPlaying ? (
-                        <Pause className="w-3 h-3 fill-current" />
-                      ) : (
-                        <Play className="w-3 h-3 fill-current ml-0.5" />
-                      )}
-                    </button>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
         </div>
-      </div>
 
       {/* Mini Player */}
       <MiniPlayer />

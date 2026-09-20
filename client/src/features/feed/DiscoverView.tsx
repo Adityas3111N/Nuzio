@@ -38,8 +38,8 @@ export const DiscoverView: React.FC = () => {
   return (
     <div className="flex-1 flex flex-col justify-between bg-[#09090f] overflow-hidden">
       <div className="flex-1 px-5 py-3 overflow-y-auto no-scrollbar">
-        {/* Header Title & Icons (mobile only) */}
-        <div className="md:hidden flex items-center justify-between pt-2 pb-3">
+        {/* Header Title & Icons */}
+        <div className="flex items-center justify-between pt-2 pb-3">
           <h2 className="text-xl font-bold text-white tracking-tight">Discover</h2>
           <div className="flex items-center gap-3">
             <button
@@ -89,8 +89,8 @@ export const DiscoverView: React.FC = () => {
           ))}
         </div>
 
-        {/* Story Feed (Responsive Grid: 1 col on mobile, 2 on tablet, 3 on desktop) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5 pb-4">
+        {/* Story Feed */}
+        <div className="flex flex-col gap-3.5 pb-4">
           {filteredStories.map((story) => {
             const isCurrentPlaying = currentStory.id === story.id && isPlaying
 
