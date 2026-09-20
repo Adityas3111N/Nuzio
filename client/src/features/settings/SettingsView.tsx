@@ -34,7 +34,7 @@ export const SettingsView: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col justify-between bg-[#09090f] overflow-hidden">
+    <div className="flex-1 flex flex-col justify-between bg-[#09090f] bg-ambient-violet overflow-hidden">
       <div className="flex-1 px-5 py-3 overflow-y-auto no-scrollbar">
         {/* Header */}
         <div className="pt-2 mb-4">
@@ -61,9 +61,9 @@ export const SettingsView: React.FC = () => {
           <button
             type="button"
             onClick={() => goToScreen('profession')}
-            className="text-xs text-[#8b5cf6] font-medium hover:underline"
+            className="text-[11px] font-medium text-indigo-400 bg-indigo-950/60 px-2.5 py-1 rounded-full border border-indigo-900/40 hover:border-indigo-700 transition-colors"
           >
-            Edit
+            Edit ›
           </button>
         </div>
 
@@ -106,14 +106,14 @@ export const SettingsView: React.FC = () => {
           </button>
         </div>
 
-        {/* App Settings Toggles */}
-        <div>
+        {/* Appearance Section */}
+        <div className="mb-5">
           <span className="text-[9px] font-bold tracking-widest text-slate-500 uppercase block mb-2.5">
-            App Settings
+            Appearance
           </span>
 
           {/* Theme Selector */}
-          <div className="p-1 rounded-xl bg-[#12121c] border border-[#1e1e2d] flex items-center mb-3">
+          <div className="p-1 rounded-xl bg-[#12121c] border border-[#1e1e2d] flex items-center">
             <button
               type="button"
               onClick={() => handleThemeChange('dark')}
@@ -139,6 +139,13 @@ export const SettingsView: React.FC = () => {
               Light
             </button>
           </div>
+        </div>
+
+        {/* Preferences Section */}
+        <div>
+          <span className="text-[9px] font-bold tracking-widest text-slate-500 uppercase block mb-2.5">
+            Preferences
+          </span>
 
           {/* Toggle 1: Offline mode */}
           <div className="flex items-center justify-between p-3 rounded-xl bg-[#101018] border border-[#1b1b28] mb-2">

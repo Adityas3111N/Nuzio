@@ -16,7 +16,7 @@ export const NotificationsView: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col justify-between px-6 py-4 bg-[#09090f] overflow-y-auto no-scrollbar">
+    <div className="flex-1 flex flex-col justify-between px-6 py-4 bg-[#09090f] bg-ambient-violet overflow-y-auto no-scrollbar">
       <div>
         {/* Top Stepper */}
         <div className="flex items-center justify-between py-2">
@@ -43,23 +43,23 @@ export const NotificationsView: React.FC = () => {
 
         {/* 5-step progress bar (all 5 filled) */}
         <div className="grid grid-cols-5 gap-1.5 my-3">
-          <div className="h-1 rounded-full bg-[#8b5cf6]" />
-          <div className="h-1 rounded-full bg-[#8b5cf6]" />
-          <div className="h-1 rounded-full bg-[#8b5cf6]" />
-          <div className="h-1 rounded-full bg-[#8b5cf6]" />
-          <div className="h-1 rounded-full bg-[#8b5cf6]" />
+          <div className="h-1 rounded-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]" />
+          <div className="h-1 rounded-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]" />
+          <div className="h-1 rounded-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]" />
+          <div className="h-1 rounded-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]" />
+          <div className="h-1 rounded-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]" />
         </div>
 
         {/* Headings */}
         <h2 className="text-xl font-bold text-white tracking-tight mt-2">
-          Stay in the loop.
+          Stay in <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-400">the loop.</span>
         </h2>
         <p className="text-xs text-slate-400 mt-1 mb-5">
           Turn on notifications so you never miss your brief.
         </p>
 
         {/* Simulated iOS Push Notification Banner */}
-        <div className="p-3.5 rounded-2xl bg-[#141420] border border-[#262638] shadow-lg shadow-black/40 mb-6">
+        <div className="p-3.5 rounded-2xl bg-[#141420] border border-[#262638] shadow-lg shadow-black/40 mb-5">
           <div className="flex items-center justify-between mb-1.5">
             <div className="flex items-center gap-1.5">
               <div className="w-4 h-4 rounded-full bg-gradient-to-tr from-[#6366f1] to-[#8b5cf6] flex items-center justify-center">
@@ -70,9 +70,9 @@ export const NotificationsView: React.FC = () => {
             <span className="text-[10px] text-slate-500">1m ago</span>
           </div>
 
-          <h3 className="text-xs font-bold text-white mb-0.5">Your morning brief is ready</h3>
+          <h3 className="text-xs font-bold text-white mb-0.5">Morning brief ready</h3>
           <p className="text-[11px] text-slate-400 leading-snug">
-            6 stories • AI & Tech, Markets, Startups • Listen now • 10:15
+            6 stories • AI & Tech, Markets, Startups • Voice: Aria • 10:15
           </p>
         </div>
 
@@ -82,8 +82,8 @@ export const NotificationsView: React.FC = () => {
             What you'll receive
           </span>
 
-          <div className="flex flex-col gap-3 mt-3">
-            <div className="flex items-center justify-between p-2 rounded-xl bg-[#101018] border border-[#1b1b28]">
+          <div className="flex flex-col gap-2.5 mt-2.5">
+            <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#101018] border border-[#1b1b28]">
               <div className="flex items-center gap-2.5">
                 <div className="w-7 h-7 rounded-lg bg-indigo-500/10 text-[#8b5cf6] flex items-center justify-center">
                   <Bell className="w-3.5 h-3.5" />
@@ -94,22 +94,37 @@ export const NotificationsView: React.FC = () => {
                 </div>
               </div>
               <span className="text-[10px] font-medium text-indigo-400 bg-indigo-950/60 px-2 py-0.5 rounded-md border border-indigo-800/40">
-                Daily at {userPreferences.scheduledTime || '7:00'} {userPreferences.scheduledPeriod || 'AM'}
+                Daily • {userPreferences.scheduledTime || '7:00'} {userPreferences.scheduledPeriod || 'AM'}
               </span>
             </div>
 
-            <div className="flex items-center justify-between p-2 rounded-xl bg-[#101018] border border-[#1b1b28]">
+            <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#101018] border border-[#1b1b28]">
               <div className="flex items-center gap-2.5">
                 <div className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center">
                   <Zap className="w-3.5 h-3.5" />
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-white">Breaking story</p>
-                  <p className="text-[10px] text-slate-400">A major event just broke in your topics</p>
+                  <p className="text-[10px] text-slate-400">A major story just broke in your topics</p>
                 </div>
               </div>
               <span className="text-[10px] font-medium text-slate-400 bg-[#161622] px-2 py-0.5 rounded-md border border-[#222232]">
                 Real-time
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#101018] border border-[#1b1b28]">
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center">
+                  <Sparkles className="w-3.5 h-3.5" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-white">Weekly digest</p>
+                  <p className="text-[10px] text-slate-400">The most saved stories from this week</p>
+                </div>
+              </div>
+              <span className="text-[10px] font-medium text-slate-400 bg-[#161622] px-2 py-0.5 rounded-md border border-[#222232]">
+                Sundays • 9:00 AM
               </span>
             </div>
           </div>
@@ -117,7 +132,7 @@ export const NotificationsView: React.FC = () => {
       </div>
 
       {/* Bottom CTA */}
-      <div className="pt-6 flex flex-col items-center gap-2.5">
+      <div className="pt-6 flex flex-col items-center gap-2">
         <button
           type="button"
           onClick={handleAllow}
@@ -129,7 +144,7 @@ export const NotificationsView: React.FC = () => {
         <button
           type="button"
           onClick={handleSkip}
-          className="text-xs text-slate-500 hover:text-slate-300 py-1"
+          className="text-xs font-bold tracking-wider text-slate-500 hover:text-slate-300 py-1 uppercase"
         >
           Not now
         </button>

@@ -11,10 +11,10 @@ export const BillingView: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col justify-between px-6 py-4 bg-[#09090f] overflow-y-auto no-scrollbar">
-      <div>
-        {/* Top bar with back arrow */}
-        <div className="flex items-center gap-3 py-2 mb-2">
+    <div className="flex-1 flex flex-col justify-between bg-[#09090f] bg-ambient-violet overflow-hidden">
+      <div className="flex-1 px-5 py-3 overflow-y-auto no-scrollbar">
+        {/* Header */}
+        <div className="flex items-center justify-between pt-2">
           <button
             type="button"
             onClick={() => goToScreen('settings')}
@@ -22,11 +22,9 @@ export const BillingView: React.FC = () => {
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
-          <span className="text-xs font-semibold text-slate-300">Settings</span>
+          <h2 className="text-xl font-bold text-white tracking-tight">Plan & billing</h2>
+          <div className="w-4" />
         </div>
-
-        {/* Headings */}
-        <h2 className="text-xl font-bold text-white tracking-tight">Plan & billing</h2>
         <p className="text-xs text-slate-400 mt-1 mb-5">
           Start free. Upgrade when mornings pay for themselves.
         </p>
@@ -47,7 +45,7 @@ export const BillingView: React.FC = () => {
             </div>
 
             <p className="text-[11px] text-slate-400 leading-relaxed mb-3.5">
-              1 article summary per topic daily. Ad-supported. Push notifications.
+              5 article summaries per niche daily. Ad-supported. Push notifications.
             </p>
 
             <button
@@ -68,7 +66,7 @@ export const BillingView: React.FC = () => {
           <div
             className={`p-4 rounded-2xl border relative transition-all ${
               userPreferences.plan === 'pro'
-                ? 'bg-[#18182b] border-[#6366f1] shadow-xl shadow-indigo-500/10'
+                ? 'bg-[#18182b] border-emerald-500/60 shadow-xl shadow-emerald-500/15'
                 : 'bg-[#131320] border-[#2d2d46]'
             }`}
           >
@@ -76,20 +74,20 @@ export const BillingView: React.FC = () => {
               <div className="flex items-center gap-2">
                 <h3 className="text-sm font-bold text-white">Pro</h3>
                 <span className="text-[9px] font-bold text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-700/50 uppercase tracking-wider">
-                  Popular
+                  Launch Offer
                 </span>
               </div>
               <span className="text-sm font-extrabold text-white">₹79<span className="text-xs font-normal text-slate-400">/mo</span></span>
             </div>
 
             <p className="text-[11px] text-slate-300 leading-relaxed mb-3.5">
-              Unlimited audio briefings, premium AI voices, multi-language support.
+              Unlimited curation briefings, premium AI voices, multi-language support.
             </p>
 
             <button
               type="button"
               onClick={() => handleSelectPlan('pro')}
-              className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-bold text-xs shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all cursor-pointer"
+              className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/25 active:scale-[0.98] transition-all cursor-pointer"
             >
               {userPreferences.plan === 'pro' ? 'Current plan (Active)' : 'Upgrade to Pro'}
             </button>
@@ -109,7 +107,7 @@ export const BillingView: React.FC = () => {
             </div>
 
             <p className="text-[11px] text-slate-400 leading-relaxed mb-3.5">
-              All Pro benefits, offline mode, priority features. Locks in lower rate.
+              All Pro benefits, offline mode, priority features. Locks in lifetime price.
             </p>
 
             <button

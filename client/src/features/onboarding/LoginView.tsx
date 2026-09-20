@@ -10,7 +10,7 @@ export const LoginView: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col justify-between px-6 py-6 bg-[#09090f]">
+    <div className="flex-1 flex flex-col justify-between px-6 py-6 bg-[#09090f] bg-ambient-center">
       {/* Top Brand */}
       <div className="flex items-center justify-center gap-1.5 pt-2">
         <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-[#6366f1] to-[#a855f7] flex items-center justify-center">
@@ -24,11 +24,11 @@ export const LoginView: React.FC = () => {
         <h2 className="text-3xl font-bold text-white tracking-tight leading-tight">
           Good morning.
         </h2>
-        <h3 className="text-3xl font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-400 mt-1 mb-4">
+        <h3 className="text-3xl font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-purple-300 to-indigo-400 mt-1 mb-4">
           News on go.
         </h3>
-        <p className="text-sm text-slate-400 leading-relaxed max-w-[280px]">
-          Personalized audio news for Indian professionals — curated every morning.
+        <p className="text-xs text-slate-400 leading-relaxed max-w-[280px]">
+          Personalised audio news for Indian professionals — curated every morning.
         </p>
       </div>
 

@@ -32,18 +32,11 @@ export const SplashView: React.FC = () => {
         </p>
       </div>
 
-      <div className="w-full flex flex-col items-center gap-3">
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation()
-            goToScreen('language')
-          }}
-          className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white font-medium text-sm shadow-lg shadow-indigo-600/30 active:scale-[0.98] transition-transform"
-        >
-          Get Started
-        </button>
-        <span className="text-[11px] text-slate-500">Tap anywhere to continue</span>
+      <div className="w-full flex flex-col items-center gap-3 pb-4">
+        <div className="flex items-center gap-2 text-[10px] tracking-[0.2em] font-medium text-slate-500 uppercase">
+          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+          <span>Creating your brief...</span>
+        </div>
       </div>
     </div>
   )

@@ -15,7 +15,7 @@ export const LanguageView: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col justify-between px-6 py-6 bg-[#09090f] overflow-y-auto no-scrollbar">
+    <div className="flex-1 flex flex-col justify-between px-6 py-6 bg-[#09090f] bg-ambient-violet overflow-y-auto no-scrollbar">
       <div>
         {/* Top Mini Brand */}
         <div className="flex items-center justify-center gap-1.5 pt-2 pb-6">
@@ -50,7 +50,7 @@ export const LanguageView: React.FC = () => {
               </span>
               <div>
                 <p className="text-sm font-semibold text-white">English</p>
-                <p className="text-xs text-slate-400">Strategy and tech in English</p>
+                <p className="text-xs text-slate-400">Briefings delivered in English</p>
               </div>
             </div>
 
@@ -79,8 +79,8 @@ export const LanguageView: React.FC = () => {
                 IN
               </span>
               <div>
-                <p className="text-sm font-semibold text-white">हिन्दी (Hindi)</p>
-                <p className="text-xs text-slate-400">दैनिक समाचार और व्यापार</p>
+                <p className="text-sm font-semibold text-white">हिंदी</p>
+                <p className="text-xs text-slate-400">हिंदी में समाचार सुनें</p>
               </div>
             </div>
 
@@ -103,22 +103,18 @@ export const LanguageView: React.FC = () => {
               <MapPin className="w-4 h-4" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <p className="text-sm font-semibold text-white">Enable Location</p>
-                {userPreferences.locationEnabled && (
-                  <span className="text-[9px] uppercase px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-semibold">
-                    Mumbai
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-slate-400">Get hyper-local news relevant to your city</p>
+              <p className="text-sm font-semibold text-white">Enable Location</p>
+              <p className="text-xs text-slate-400">Get hyper-local news tailored to your city.</p>
+              <span className="inline-block mt-1 text-[9px] font-bold text-slate-400 bg-[#161622] px-2 py-0.5 rounded-full border border-slate-700/40 uppercase tracking-wider">
+                + Set as priority
+              </span>
             </div>
           </div>
 
           <button
             type="button"
             onClick={toggleLocation}
-            className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
+            className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer shrink-0 ${
               userPreferences.locationEnabled ? 'bg-[#6366f1]' : 'bg-slate-700'
             }`}
           >

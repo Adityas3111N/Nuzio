@@ -42,7 +42,7 @@ export const TopicsView: React.FC = () => {
         topics: selectedTopics.filter((t) => t !== label),
       })
     } else {
-      if (selectedTopics.length < 3) {
+      if (selectedTopics.length < 7) {
         updatePreferences({
           topics: [...selectedTopics, label],
         })
@@ -51,7 +51,7 @@ export const TopicsView: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col justify-between px-6 py-4 bg-[#09090f] overflow-y-auto no-scrollbar">
+    <div className="flex-1 flex flex-col justify-between px-6 py-4 bg-[#09090f] bg-ambient-violet overflow-y-auto no-scrollbar">
       <div>
         {/* Top Stepper */}
         <div className="flex items-center justify-between py-2">
@@ -78,8 +78,8 @@ export const TopicsView: React.FC = () => {
 
         {/* 5-step progress bar */}
         <div className="grid grid-cols-5 gap-1.5 my-3">
-          <div className="h-1 rounded-full bg-[#8b5cf6]" />
-          <div className="h-1 rounded-full bg-[#8b5cf6]" />
+          <div className="h-1 rounded-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]" />
+          <div className="h-1 rounded-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]" />
           <div className="h-1 rounded-full bg-[#1e1e2d]" />
           <div className="h-1 rounded-full bg-[#1e1e2d]" />
           <div className="h-1 rounded-full bg-[#1e1e2d]" />
@@ -87,12 +87,12 @@ export const TopicsView: React.FC = () => {
 
         {/* Headings with counter pill */}
         <h2 className="text-xl font-bold text-white tracking-tight mt-2">
-          What moves your world?
+          What moves <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-400">your world?</span>
         </h2>
-        <div className="flex items-center justify-between mt-1 mb-5">
-          <p className="text-xs text-slate-400">Pick up to 3 topics</p>
-          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#1b1b2a] text-[#8b5cf6] border border-[#2b2b40]">
-            {selectedTopics.length}/3
+        <div className="flex items-center gap-2 mt-1 mb-5">
+          <p className="text-xs text-slate-400">Pick up to 7 niches.</p>
+          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-700/50">
+            {selectedTopics.length}/7
           </span>
         </div>
 

@@ -36,11 +36,14 @@ export const DiscoverView: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col justify-between bg-[#09090f] overflow-hidden">
+    <div className="flex-1 flex flex-col justify-between bg-[#09090f] bg-ambient-violet overflow-hidden">
       <div className="flex-1 px-5 py-3 overflow-y-auto no-scrollbar">
         {/* Header Title & Icons */}
-        <div className="flex items-center justify-between pt-2 pb-3">
-          <h2 className="text-xl font-bold text-white tracking-tight">Discover</h2>
+        <div className="flex items-center justify-between pt-2 pb-1">
+          <div>
+            <h2 className="text-xl font-bold text-white tracking-tight">Discover</h2>
+            <p className="text-xs text-slate-400">Instant audio — explore the world.</p>
+          </div>
           <div className="flex items-center gap-3">
             <button
               type="button"
@@ -60,7 +63,7 @@ export const DiscoverView: React.FC = () => {
         </div>
 
         {/* Search Input Bar */}
-        <div className="relative mb-3">
+        <div className="relative mb-3 mt-2">
           <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
@@ -80,7 +83,7 @@ export const DiscoverView: React.FC = () => {
               onClick={() => setSelectedCategory(cat)}
               className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
                 selectedCategory === cat
-                  ? 'bg-white text-black font-semibold'
+                  ? 'bg-emerald-400 text-black font-bold shadow-sm shadow-emerald-500/20'
                   : 'bg-[#151522] text-slate-400 hover:text-white border border-[#232336]'
               }`}
             >
@@ -100,10 +103,14 @@ export const DiscoverView: React.FC = () => {
                 className="p-4 rounded-2xl bg-[#12121d] border border-[#1f1f2e] hover:border-[#2a2a3e] transition-all"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[9px] font-bold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40 uppercase tracking-wider">
-                    {story.category}
-                  </span>
-                  <span className="text-[10px] text-slate-500">{story.source}</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[9px] font-bold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40 uppercase tracking-wider">
+                      {story.category}
+                    </span>
+                    <span className="text-[9px] font-bold text-slate-400 bg-[#161622] px-2 py-0.5 rounded border border-slate-700/50 uppercase tracking-wider">
+                      {story.source}
+                    </span>
+                  </div>
                 </div>
 
                 <h3 className="text-sm font-semibold text-white leading-snug mb-1.5">
